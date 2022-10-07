@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02_vue_bind</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        .redStyle{color:red;}
+        #blueBg{background-color: blue; color:#fff;}
+        .kakaoTitle{color:blueviolet; font-style: italic;}
+    </style>
+</head>
+<body>
+    <!-- v-bind 디렉티브의 역할 : Vuw 인스턴스 내부에서 선언된 data의 속성값들을 변수처럼 사용하여 HTML 문서상에 문자열로 표현한다. 지정된 자리에 넣는다. -->
+    <div id="main">
+        <h2 v-bind:class="colorName+'Style'">폰트의 색상변경</h2>
+        <p :id="bgColor">배경색상</p>
+        <!-- "v-bind:"  ==(대체가능)==> ":" -->
+    </div>
+
+    <hr>
+
+    <div id="app">
+        <h3 :class="test">문장 타이틀</h3>
+        <img :src="'./img/'+imgSrc" style="height:100px" :alt="altText">
+    </div>
+
+    <hr>
+
+    <div id="video">
+        <video :src="'./video/'+bVideo" autoplay loop playsinline muted></video>
+    </div>
+
+    <script>
+        const main = new Vue({
+            el : "#main",
+            data : {
+                colorName : "red",
+                bgColor : "blueBg"
+            }
+        });
+
+        const app = new Vue({
+            el : "#app",
+            data : {
+                test : "kakaoTitle",
+                imgSrc : "kakao.jpg",
+                altText : "카카오 이미지"
+            }
+        });
+        
+        const video = new Vue({
+            el : "#video",
+            data : {
+               bVideo : "speaker.mp4"
+            }
+        });
+    </script>
+
+</body>
+</html>

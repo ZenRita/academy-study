@@ -1,0 +1,207 @@
+@charset "utf-8";
+*{box-sizing: border-box;}
+html, body{margin: 0; padding: 0;}
+h1, h2, h3, h4, h5, h6, p{margin: 0;}
+ul, ol{margin: 0; padding: 0; list-style: none;}
+a, a:hover{text-decoration: none;}
+
+:root{
+    --tit-fz : 24px;
+}
+
+/*header*/
+header{
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    z-index: 10;
+    top: 0;
+    left: 0;
+}
+header .wrap{
+    width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #aff;
+    padding: 0 10px;
+}
+header .wrap .logo{}
+header .wrap .logo a{}
+header .wrap .logo a img{
+    display: block;
+    height: 35px;
+}
+header .wrap nav{}
+header .wrap nav ul{
+    display: flex;
+    column-gap: 40px;
+}
+header .wrap nav ul li{
+    /* margin: 0 20px; */
+}
+header .wrap nav ul li:last-child{
+    /* margin-right: 0; */
+}
+header .wrap nav ul li a{
+    display: block;
+    font-size: 16px;
+    color:#555;
+    text-transform: uppercase;
+}
+header .wrap nav ul li:hover a{
+    color:#222;
+}
+
+
+/*banner*/
+#slider{
+    height: 470px;
+    padding-top: 70px;
+    position: relative;
+    overflow: hidden;
+}
+#slider .slide_frame{}
+#slider .slide_frame .slide{
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+#slider .slide_frame .slide .bgImg{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+#slider .slide_frame .slide .dark{
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.25);
+}
+
+
+#slider .wrap{
+    position: absolute;
+    top: 70px; left: 50%;
+    transform: translateX(-50%);
+    width: 1200px;
+    height: 100%;
+    /* background-color: #ffa; */
+    display: flex;
+    align-items: center;
+    padding-left: 200px;
+}
+#slider .wrap .text_part{
+    width: 40%;
+    margin: 0 10px;
+}
+#slider .wrap .text_part h2{
+    font-size: 32px;
+    color:#fff;
+    padding-bottom: 25px;
+    word-break:keep-all;
+}
+#slider .wrap .text_part a{
+    display: block;
+    width: 140px;
+    height: 40px;
+    border : 1px solid #fff;
+    border-radius: 20px;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#slider .wrap .text_part a:hover{
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+/*review*/
+#review{
+    height: 480px;
+    background-image: url(../img/content_03.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+#review .dark{
+    width: 100%;
+    height: 100%;
+    padding: 60px 0;
+}
+#review .dark .wrap{
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    overflow: hidden;
+}
+#review .dark .wrap .title{
+    padding-bottom: 40px;
+}
+#review .dark .wrap .title h2{
+    font-size: var(--tit-fz);
+    color:#fff;
+    text-align: center;
+}
+#review .dark .wrap .slide_cover{
+    overflow: hidden;
+}
+#review .dark .wrap .slide_cover .slider{
+    width: 300%;
+    display: flex;
+    flex-wrap: wrap;
+    color:#fff;
+}
+#review .dark .wrap .slide_cover .slider .slide{
+    width: calc(100% / 3);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+#review .dark .wrap .slide_cover .slider .slide p{
+    width: -webkit-calc(100% / 3 * 2);
+    width: -moz-calc(100% / 3 * 2);
+    width: calc(100% / 3 * 2);
+    margin: 0 auto;
+    font-size: 14px;
+    padding-bottom: 20px;
+}
+#review .dark .wrap .slide_cover .slider .slide .img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: #faa;
+    background-size: cover;
+    background-position: 50% 50%;
+    margin: 0 auto;
+}
+#review .dark .wrap .slide_cover .slider .slide span{
+    display: block;
+    padding-top: 20px;
+    font-size: 14px;
+}
+#review .dark .wrap .pager{
+    padding-top: 20px;
+}
+#review .dark .wrap .pager ol{
+    display: flex;
+    justify-content: center;
+}
+#review .dark .wrap .pager ol li{
+    margin: 0 15px;
+    width: 20px;
+    height: 20px;
+    background-color: #a0a0a0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+#review .dark .wrap .pager ol li.active{
+    background-color: #fff;
+}

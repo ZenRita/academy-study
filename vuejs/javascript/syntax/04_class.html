@@ -1,0 +1,224 @@
+<script>
+    // 게임 캐릭터 : 이름, 무기, 옷, 능력, ...
+    // 동시 접속자에게 동일한 서비스를 제공하기 위해서는 객체화시키는 것이 필요하다
+
+    const pony = {
+        name : "아반떼",
+        color : "흰색",
+        start : function(){
+            console.log(`${this.color} ${this.name}가 시동을 건다`);
+            pony.drive();
+        },
+        drive : function(){
+            console.log(`${this.color} ${this.name}가 주행을 한다`);
+        }
+    }
+    pony.start();
+
+    // 일반적으로 객체는 재활용이 어려움
+    // 객체를 재활용이 가능한 구조로 구조화 시키는 것이 필요 => 프로토타입(화) : 재사용 또는 재활용을 통해 
+    // 객체를 생성하는 역할
+    const Car = ( function(){
+        console.log("프로토타입의 시작");
+        // 생성자(constructor) - 외부로부터 전달 된 데이터 들을 함수구문 내부에서 활용하도록 만든다
+        function Car(name1, color1){
+            this.name = name1
+            this.color = color1
+        }
+        Car.prototype.start = function(){
+            console.log(this);  // Car {name: '아반떼', color: '흰색'}
+            console.log(this.name); // 아반떼
+            console.log(`${this.color} ${this.name}(이)가 시동을 건다`);    // 흰색
+            this.drive();
+        }
+        Car.prototype.drive = function(){
+            console.log(`${this.color} ${this.name}(이)가 주행을 한다`);    // 흰색
+        }
+
+        return Car;
+    })();   // () 즉시 실행 함수 : 프로토타입을 기다리게 만듬
+
+    const avante = new Car("아반떼", "흰색");
+    avante.start();
+
+    const tusan = new Car("투싼", "블랙");
+    tusan.start();
+
+
+    // 자바스크리트에서는 객체의 종류 : Object(객체), Date(날짜), String(문자), Number(숫자), Array(배열) 
+
+    // 학생 student : 학생의 등교 명단에 의한 데이터를 취급하여 어느 반으로 들어 갔는지에 대한 로그 기록을 출력
+    const students = [
+        ["강나라", "7반"],
+        ["나지영", "3반"],
+        ["김성우", "1반"],
+        ["김동연", "5반"],
+        ["이성균", "4반"],
+        ["한우리", "2반"]
+        
+    ]
+
+    const Student1 = (function() {
+        // 생성지 파트
+        function Student1(st_name, st_classNum){
+            this.name = st_name;
+            this.classNum = st_classNum;
+        }
+
+        // 프로토 타입파트
+        Student1.prototype.enterance = function(){
+            console.log(`${this.name}의 학생이 ${this.classNum}으로 들어갔습니다`);
+        }
+        return Student1;
+    })();
+
+    for(v of students){
+        console.log(v);
+        const student_1 = new Student1(v[0], v[1]);
+        student_1.enterance();
+    }
+
+    // 실습문제 : 게임 입장(던전)
+    // 배열 페턴 : {name : "이름", category : "종족", level : 레벨(숫자)}
+    const gamer = [    
+            {name : "불타는 용병", category : "오크", level : 54},
+            {name : "얼음 용병", category : "휴먼", level : 32},
+            {name : "할리퀸", category : "하이엘프", level : 42},
+            {name : "냉혈전사", category : "휴먼", level : 29},
+            {name : "로드 무법자", category : "다크엘프", level : 59},
+        ]
+        // 예시, 콘솔창에 "홍길동(23 - 오크)님이 입장하셨습니다" 출력
+        // 반드시 프로토타입을 이용할 것.
+        console.log(gamer[2].name)  // 할리퀸
+
+
+        //ES6 이후에 객체를 클래스화 시킴
+        class NewCar {
+            // 생성자 : 클래스 내부에 객체를 생성
+            constructor(name1, color1,) {
+                this.name = name1;
+                this.color = color1;
+            }
+            // 기능 : 행동수칙
+            start(){
+                console.log(`${this.color} ${this.name}(이)가 시동을 건다`);
+                this.drive();
+            }
+            drive(){
+                console.log(`${this.color} ${this.name}(이)가 주행을 한다`);
+            }
+        }
+
+        const NewAvante = new NewCar("뉴 아반떼", "코드블루");
+        NewAvante.start();
+        const NewTusan = new NewCar("뉴 투싼", "메탈 블랙");
+        NewTusan.start();
+
+        // 실습문제
+        // class를 활용하여 콘솔창에 "장바구니에 담은 상품은 곰인형(15,000원)입니다."
+        // class를 활용하여 콘솔창에 "장바구니에 담은 상품은 레고(20,000원)입니다."
+        const pd_arr = [
+            ["곰인형", "15,000원"],
+            ["레고", "20,000원"]
+        ];
+
+        /*
+        [class 작성간 주의사항] 
+        #1. class라는 함수 개념은 호이스팅이 작용되지 않음. class 인자가 먼저 선언되고, 관련된 호출이 나중에 문서에
+        작성 되어야 함
+        */
+       class CartBox1{
+            constructor(item){
+                this.item = item;
+            }
+            inBox(){
+                console.log(`장바구니 상품 : ${this.item}입니다`)
+            }
+       }
+       const gift1 = new CartBox1("옥스포트 블록");
+       gift1.inBox();
+        
+
+       //#2. 실제 전달되는 생성자와 행동으로 이어질 수 있는 기능을 동일한 방향으로 작성했을 때
+       class CarBox2{
+            constructor(item){
+                this.item = item;
+            }
+            item(){
+                console.log(`장바구니 상품 : ${this.item}입니다`)
+            }
+       }
+       const gift2 = new CarBox2("레고 블록");
+    //    gift2.item();
+       console.log(gift2);
+
+       // 상속 : 부모 인자의 메모리 영역을 자식의 영역에 전달하여 활용한다
+       class Zoo{
+            // 생성자 파트
+            constructor(animalName, animalFood){
+                this.name = animalName;
+                this.food = animalFood;
+            }
+
+            // 기능 파트
+            feed(){
+                console.log(`${this.name}에게 ${this.food}를 주었습니다`);
+            }
+       }
+       const animal = new Zoo("동물", "음식");
+       animal.feed();
+
+       class Rabbit extends Zoo{
+
+       }
+       const rabbit = new Rabbit("토끼", "상추");
+       rabbit.feed();
+       class Monkey extends Zoo{
+            // 메소드 오버라이딩 : 기존 상속받은 메소드에 <<덮어쓰기>>를 하여 구현한다
+            // (자바에서 @Overridie)
+            feed(){
+                console.log(`${this.name}는 감기에 걸려서 ${this.food}를 먹을 수가 없습니다`)
+            }
+        }
+       const monkey = new Monkey("원숭이", "바나나");
+       monkey.feed();
+
+       class Tiger extends Zoo{
+
+        }
+       const tiger = new Tiger("호랑이", "원숭이");
+       tiger.feed();
+
+
+        // 실습 문제 : class + 상속 + 메소드 오버라이드 적용
+        // 각 캐릭터가 존재 + 각 캐릭터마다 장비가 다름
+        // Knight {"기사", "얼음 검"}
+        // wizard {"마법사", "불 지팡이"}
+        // stealer{"도적", "블랙 단도"}
+
+        //Dungeon 이라는 클래스에 생성자와 기능인 action() 메소드에 작성하고 
+
+
+        class CartMe{
+            constructor(name1, price1, number1){
+                this.name = name1;
+                this.price = price1;
+                this.number = number1;
+            }
+            set number(value){
+                console.log(value); // -10
+                this._number = value < 1 ? 1 : value;
+                console.log(this._number);
+            }
+            get number(){
+                console.log(this._number);
+                return this._number;
+            }
+            buy(){
+                console.log(`${this.price}원의 ${this.name}를 ${this.number}개 구입했습니다`);
+            }
+        }
+        const product = new CartMe("순살치킨", 5000, -10);
+        product.buy();
+
+    </script>

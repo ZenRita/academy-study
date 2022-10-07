@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_hello_vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <div id="main">
+        <!-- Vue 라는 인스턴스의 title의 value 값을 p태그 내부에 텍스트영역에 넣을 때 사용 {{}} ==> 머시태그-->
+        <p>{{title}}</p>
+        <h3>나의 이름은 {{myName}} 입니다.</h3>
+
+        <hr>
+        <!-- 머시태그 이외에도 v-text라는 디렉티브를 활용하면 속성이 참조하는 문자열을 표현 가능 -->
+        <h3 v-text="sample_text"></h3>
+
+    </div>
+
+    <script>
+        //인스턴스를 생성(메모리 공간 형성)
+        new Vue({
+            //아이디 선택자가 main인 문서 객체를 지정
+            el : "#main",
+            data : {
+                //문서내부에 전달할 데이터 값(들)
+                title : "Hello, Vue~!!",
+                myName : "안재욱",
+
+                sample_text : "이곳은 샘플 텍스트 영역입니다."
+            }
+        })
+    </script>
+</body>
+</html>

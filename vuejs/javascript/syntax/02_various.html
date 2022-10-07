@@ -1,0 +1,294 @@
+<script>
+    //#1. var, let, const 비교
+    //{ } : 스코프(scope) - 하나의 메모리 공간 + 실행 공간
+    //if(조건식){실행문}
+    //function(){실행문}
+    //객체 = {key1 : value1, key2 : value2, key3 : function(){}, ....}
+
+    //**변수 var**//
+    var boul = "샐러드";  //boul 그릇에 "샐러드" 담았음
+    console.log(boul);
+    var boul = "해장국";  //기존의 boul 그릇에 "해장국"으로 바꾸어버림
+    console.log(boul);
+
+    ////조건식에 변수선언
+    var msg1 = "hello";  //전역변수
+    console.log(msg1);  //"hello"
+    if(12>10){
+        var msg1 = "Good Luck";  //지역변수
+        console.log(msg1);  //"Good Luck"
+    }
+    console.log(msg1);  //"Good Luck"
+
+    ////함수에서 변수선언
+    var msg2 = "nice";  //전역변수
+    console.log(msg2);  //"nice"
+    //함수구문
+    function printOut1(){
+        var msg2 = "thank you";  //지역변수
+        console.log(msg2);  //"thank you"
+    }
+    //함수 호출문
+    printOut1();
+    console.log(msg2);  //"nice" => 
+    //동일한 스크프 영역을 선언했음에도 불구하고 전역변수의 영향을 받는다.
+
+    //스코프의 역할과 위치마다 선언된 변수값을 일정하게 가져오지 못함 
+    //===> let과 const의 생성원인
+
+    //**변수 let**//
+    ////조건식에 변수선언
+    let msg3 = "hello";  //전역변수
+    console.log(msg3);  //"hello"
+    if(12>10){
+        let msg3 = "Good Luck";  //지역변수
+        console.log(msg3);  //"Good Luck"
+    }
+    console.log(msg3);  //"hello" ==> 확실한 전역 공간에 선언된 변수의 값을 가져온다.
+
+    ////함수에서 변수선언
+    let msg4 = "nice";  //전역변수
+    console.log(msg4);  //"nice"
+    //함수구문
+    function printOut2(){
+        let msg4 = "thank you";  //지역변수
+        console.log(msg4);  //"thank you"
+    }
+    //함수 호출문
+    printOut2();
+    console.log(msg4);  //"nice"
+
+
+    //**변수 const**//
+    ////조건식에 변수선언
+    const msg5 = "hello";  //전역변수
+    console.log(msg5);  //"hello"
+    if(12>10){
+        const msg5 = "Good Luck";  //지역변수
+        console.log(msg5);  //"Good Luck"
+    }
+    console.log(msg5);  //"hello" ==> 확실한 전역 공간에 선언된 변수의 값을 가져온다.
+
+    ////함수에서 변수선언
+    const msg6 = "nice";  //전역변수
+    console.log(msg6);  //"nice"
+    //함수구문
+    function printOut3(){
+        const msg6 = "thank you";  //지역변수
+        console.log(msg6);  //"thank you"
+    }
+    //함수 호출문
+    printOut3();
+    console.log(msg6);  //"nice"
+
+
+//#2. var와 let 상세비교
+    if(true){
+        var age1 = 20;
+        console.log(`1. 당신의 나이는 : ${age1}`);
+    }
+    console.log(`2. 당신의 나이는 : ${age1}`);
+
+    if(true){
+        let age2 = 21;
+        console.log(`1. 당신의 나이는 : ${age2}`);
+    }
+    //console.log(`2. 당신의 나이는 : ${age2}`);
+
+    //var와 let의 혼합
+    if(true){
+        var age3 = 22;
+        console.log(`1. 당신의 나이는 : ${age3}`);
+    }
+    //let age3 = 24;
+    //console.log(`2. 당신의 나이는 : ${age3}`);
+
+    if(true){
+        let age4 = 25;
+        console.log(`1. 당신의 나이는 : ${age4}`);
+    }
+    var age4 = 27;
+    console.log(`2. 당신의 나이는 : ${age4}`);
+
+    //동일한 변수명을 갖고 있는 상태(let)
+    // let cart = "아이비";
+    // let cart = "참크래커";  //에러발생 : Uncaught SyntaxError: Identifier 'cart' has already been declared
+    //console.log(cart);
+
+    let cart = "아이비";
+    cart = "참크래커";
+    console.log(cart);
+
+//#3. const 상세비교 : 상수 ==> 함수구문, 배열, 객체 : 대입 가능한 형태, 외곽이 변경되지 않은 데이터
+    const num1 = 20;
+    //num1 = 24;  //Uncaught TypeError: Assignment to constant variable.
+    console.log(num1);
+
+    //배열데이터 ["데이터1","데이터2",....]
+    //["서울", "경기", "인천"]
+    const region = ["서울", "경기", "인천"];
+    console.log(region[1]);  //경기
+
+    const num_arr = [25, 30, 35];
+    num_arr.push(40);  
+    //배열변수명.push("새로운 데이터") : 기존 배열 데이터에 새로운 데이터를 맨 뒷자리에 추가한다.
+    //배열변수명.pop() : 기존 배열 데이터에서 맨 마지막 데이터를 제거한다.
+    //배열변수명.shift() : 기존 배열 데이터에서 맨 첫번째 인덱스 번호의 데이터를 제거한다.
+    //배열변수명.unshift("세로운 데이터") : 기존 배열 데이터에서 맨 첫번째 인덱스 번호의 자리에 새로운 데이터를 추가한다.
+    console.log(num_arr);  //[25, 30, 35, 40]
+
+    //회원1 = [아이디 번호, 이름, 성별, 나이, 주소]
+    //회원2 = [아이디 번호, 이름, 성별, 나이, 주소]
+
+    //회원 = [
+    //     [아이디 번호1, 이름1, 성별1, 나이1, 주소1],
+    //     [아이디 번호2, 이름2, 성별2, 나이2, 주소2]
+    //]
+    //회원[0][2] ==> 성별1
+
+    //배열데이터 자체를 변경할 경우, 에러 발생(데이터 자체를 갱신할 수 없다.)
+    const str_arr = ["img_01.jpg", "Photo1"];
+    //str_arr = ["img_02.jpg", "Photo2"];
+    console.log(str_arr);
+
+    //객체 데이터{key1:value1, key2:value2, ...}일 경우
+    const myHero1 = {
+        name : "불타는 용병",
+        category : "오크",
+        level : 1,
+        hp : 100,
+        ep : 0,
+        cloth : "일반 가죽옷",
+        device : "목검"
+    }
+    console.log(myHero1);
+    console.log(myHero1.cloth);
+    myHero1.hat = "비니모자";
+    console.log(myHero1);
+
+    myHero1.level++;
+    console.log(myHero1);
+
+    //게임 캐릭터를 없애고 다시 만든다? { } 스코프 자체를 교체 불가능
+    // myHero1 = {
+    //     level:72,
+    // }
+    console.log(myHero1);
+
+
+//#4. 불변변수 const + 자바스크립트 내장함수의 사용
+const arr1 = [2, 3, 4, 5];
+arr1.unshift(1);
+console.log(arr1);
+
+arr1.pop();
+console.log(arr1);
+
+const obj1 = {};
+Object.assign(obj1, {new0 : "BTS"}, {new1 : "아이유"});
+console.log(obj1);
+
+//assign(객체 변수명, {신규 key1 : 신규 value1}, {신규 key2 : 신규 value2}, ....) ==> 객체에 새로운 값을 할당할 수 있음
+
+Object.assign(obj1, {new0 : "소방차"});
+console.log(obj1);
+//assign(객체 변수명, {기존 key1 : 신규 value1})  ==> 기존에 존재하는 key1의 value 값의 교체도 가능하다.
+
+
+//배열데이터와 객체데이터의 차이점 및 공통점
+/*
+    공통점 : 여러가지 데이터를 담을 수 있음
+    차이점
+        - 배열데이터 : 이미 순서가 정해져 있음 => 인덱스 번호를 기준으로 찾음
+        - 객체데이터 : 실질적인 순서는 없음 => key 값을 기준으로 value 값을 추출
+*/ 
+
+
+//#5. 불변변수 const + 전개연산자(나열형 자료(배열, 객체)를 추출하거나 연결시 사용)
+    const arr2 = [0];
+    const arr3 = arr2.concat(1);  //배열변수명.concat(새로운 배열 데이터) : 두가지 배열을 결합을 시키겠다는 것을 의미
+    console.log(arr3);  //[0, 1]
+
+    //전개연산자를 통한 결합
+    const arr4 = [...arr3, 2, 3];
+    console.log(arr4);  //[0, 1, 2, 3]
+
+    const arr4_1 = arr3.concat([2, 3]);
+    console.log(arr4_1);  //[0, 1, 2, 3]
+
+    //전개연산자를 통한 추출
+    const [first, ...arr5] = arr4; //[0, 1, 2, 3]
+    console.log(first);  //0
+    console.log(arr5);  //[1, 2, 3]  전개연산자를 이용했기 때문에 first 에는 첫번째 0번 인덱스번호의 값을 저장하고, 나머지를 가져와서 arr5에 저장을 한다.(배열 데이터의 형식)
+
+    //전개연산자를 활용하여 마지막 인덱스에 위치한 배열데이터인 [3]으로 추출하시오. (추출 대상은 arr5를 기준으로 적용한다.)
+    const [a, b, ...arr6] = arr5;
+    console.log(a);  //1
+    console.log(b);  //2
+    console.log(arr6);  //3
+
+
+    //객체 데이터를 기준으로 전개연산자를 활용한다.
+    const obj2 = {
+        name : "홍길동전",
+        context : "아버지를 아버지라...",
+        age : 20
+    }
+    //전개연산자의 객체 데이터의 결합 또는 변경
+    const obj3 = {...obj2, region:"서울"};
+    console.log(obj3);
+    const obj4 = {...obj3, age : 21};  //기존 age의 데이터 값을 교체
+    console.log(obj4);
+
+    //전개연산자를 통한 객체 데이터의 추출
+    const {age, ...obj5} = obj4;
+    console.log(age);
+    console.log(obj5);
+
+    //obj4을 기준으로 context key값의 데이터만 추출하기
+    const {context, ...obj6} = obj4;
+    console.log(context); 
+
+
+//실습문제 : 전개연산자를 활용하여 내부 데이터를 변경
+const marvel1 = {
+    name:"헐크-변신전", 
+    power:500,
+    region:"뉴욕"
+};
+
+//전개연산자 활용 후, 콘솔창에 반환결과 {name:"헐크-변신후", power:1000, region:"뉴욕"}
+
+//위 결과를 기준으로 최종적으로 전개연산자를 활용하여 일부 값을 객체 데이터로 추출. 콘솔창에 반환 결과 {name:"헐크-변신후", region:"뉴욕"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

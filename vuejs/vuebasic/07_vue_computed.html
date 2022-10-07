@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07_vue_computed</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!-- computed 속성은  머시태그{{}}를 이용하여 HTML 엘리먼트의 값이 어떻게 변하는지를 살펴보는 연산작업을 수행 -->
+
+    <h3>[브라우저가 로딩되면서 함수를 호출할 수 있음]</h3>
+    <img class="startImg" src="" alt="">
+
+    <script>
+        const $startImg = document.querySelector(".startImg");
+        function startFunc(){
+            $startImg.setAttribute("src", "./img/kakao.jpg");
+        }
+        startFunc();
+    </script>
+
+    <div id="app">
+        <h3>대문자를 변환시키는 과정</h3>
+        <p>원본문장 : "{{originMsg}}"</p>
+        <p>대문자로 변형된 문장 : "{{funcUpperCaseMsg}}"</p>
+    </div>
+
+    <div id="main">
+        <h3>장바구니에 있는 아이템의 원가, 수량 ==> 전체금액</h3>
+        <div>
+            <!-- 
+                [출력결과]
+                <p>곰인형(15000원)의 3개 구입 총가격은 45000원</p>
+            -->
+            <p>{{myCart[0]}}({{myCart[1]}}원)의 {{myCart[2]}}개 구입 총가격은 {{funcResult}}원</p>
+        </div>
+    </div>
+
+    <h3>식당 예약 : 성인(20000) - 3명 / 아동(12000) - 4명. 총 예약 결제 금액 구하시오. v-for 디렉티브를 활용하여 p태그로 구성. 최종 결제 금액은 computed라는 속성의 값으로 반환하여 받아올 것</h3>
+
+    <!-- 
+        <div>
+            <p>성인 / 20000 / 3 / 60000</p>
+            <p>아동 / 12000 / 4 / 48000</p>
+        </div>
+        <h4>총 결제금액 108000</h4>
+        108000 자리에 computed 내부의 함수인 {{funTotal}}
+    -->
+
+    <div id="main2">
+        <div v-for="item in reservationInfo">
+            <p>{{item[0]}} / {{item[1]}} / {{item[2]}} / {{item[1] * item[2]}}</p>
+        </div>
+        <h4>총 결제금액 {{funTotal}}</h4>
+    </div>
+
+    <script>
+        const main2 = new Vue({
+            el : "#main2",
+            data : {
+                totalPrice : 0,  //초기의 총 결제 금액
+                reservationInfo : [
+                    ["성인", 20000, 3],
+                    ["아동", 12000, 4],
+                    ["유아", 6000, 2]
+                ]
+            },
+            computed : {
+                funTotal : function(){
+                    for(v of this.reservationInfo){
+                        console.log(v);
+                        this.totalPrice += v[1] * v[2];
+                        console.log(this.totalPrice);
+                    }
+                    return this.totalPrice;
+                }
+            }
+        });
+
+        const main = new Vue({
+            el : "#main",
+            data : {
+                myCart : ["곰인형", 15000, 3]
+            },
+            computed : {
+                funcResult : function(){
+                    console.log(this.myCart[0]);
+                    console.log(this.myCart[1]);
+                    console.log(this.myCart[2]);
+                    return this.myCart[1] * this.myCart[2];
+                }
+            }
+        });
+
+
+        const app = new Vue({
+            el : "#app",
+            data : {
+                originMsg : "Have a good day"
+            },
+            computed : {
+                funcUpperCaseMsg : function(){
+                    console.log(this);
+                    console.log(this.originMsg);
+                    return this.originMsg.toUpperCase();
+                }
+            }
+        });
+    </script>
+
+
+    
+</body>
+</html>

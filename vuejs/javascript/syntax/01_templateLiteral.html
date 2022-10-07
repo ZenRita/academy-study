@@ -1,0 +1,113 @@
+<script>
+    //**ES6 이후 문법의 특징**
+    //var 예약어 -> let, const 예약어
+    //프로토타입 -> 클래스 함수
+    //비동기 처리방식 : 간결화
+    //모듈이라는 개념
+
+    //템플릿 리터럴(``) - 백틱
+    //********* ES6 이전 문법
+    console.log("***ES6 이전 문법***");
+    //string(문자형), number(숫자형), boolean(논리형), undefined, null, symbol
+    var string1 = "안녕하세요";
+    var string2 = "반갑습니다.";
+    var greeting1 = string1 + ", " + string2;
+    console.log(greeting1);
+
+    var product1 = {
+        name : "곰인형",
+        price : "7,200원"
+    };
+    var message1 = "상품 " + product1.name + "의 가격은 " + product1.price + " 입니다.";
+    console.log(message1);
+
+    var value1 = 1;
+    var value2 = 2;
+    var result1 = "구입한 총 수량은 " + (value1 + value2) + "개 입니다.";
+    console.log(result1);  //문자결합 연산자 = 문자열 + 숫자열 => 문자열
+
+    //삼항조건 연산자 (논리형 식 ? A(참인 경우) : B(거짓인 경우))
+    var msg1 = 10 > 12;  //false
+    var result_bool1 = "논리형 값은 " + (msg1 ? "참" : "거짓") + " 입니다.";
+    console.log(result_bool1);
+
+    
+    //********* ES6 이후 문법
+    console.log("***ES6 이후 문법***");
+    //`${변수명}`
+    var string3 = "안녕하세요";
+    var string4 = "반갑습니다.";
+    var greeting2 = `${string3}, ${string4}`;
+    console.log(greeting2);
+
+    var product2 = {
+        name : "곰인형",
+        price : "7,200원"
+    };
+    var message2 = `상품 ${product2.name}의 가격은 ${product2.price} 입니다.`;
+    console.log(message2);
+
+    var value3 = 1;
+    var value4 = 2;
+    var result2 = `구입한 총 수량은 ${value3 + value4}개 입니다.`;
+    console.log(result2);
+
+    var msg2 = 10 > 12;  //false
+    var result_bool2 = `논리형 값은 ${msg2 ? "참" : "거짓"} 입니다.`;
+    console.log(result_bool2);
+
+    //실습(ES6 이전)
+    var cart1 = {
+        present : "장미 한 묶음",
+        price : 15000
+    }
+    var totalPrice1 = function(){
+        return cart1.price + "원";
+    }
+    console.log(totalPrice1);
+    console.log(totalPrice1());
+
+    var myCart1 = "장바구니에 " + 
+                cart1.present + 
+                "이(가) 담겨 있습니다. 구입가격은 " +
+                totalPrice1() + " 입니다.";
+
+    console.log(myCart1);  
+    //장바구니에 장미 한 묶음이(가) 담겨 있습니다. 구입가격은 15000원 입니다.
+
+    //실습(ES6 이후)
+    var cart2 = {
+        present : "장미 한 묶음",
+        price : 15000
+    }
+    var totalPrice2 = function(){
+        return `${cart2.price}원`;
+    }
+    console.log(totalPrice2());
+    var myCart2 = `장바구니에 ${cart2.present}이(가) 담겨 있습니다. 구입가격은 ${totalPrice2()} 입니다.`;
+    console.log(myCart2); 
+
+    ////함수란 함수구문과 호출문
+    //일반함수 : 직접 호출할 수 있는 이름이 존재하는 함수
+    function a1(){
+        console.log(`a1 함수 호출`);
+    }
+    a1();
+
+    //익명함수 : 직접 호출할 수 있는 함수 이름은 존재하지 
+    //않으나 간접적으로 함수를 작동시킬 수 있는 함수
+    var a2 = function(){
+        console.log(`a2 함수 호출`);
+    }
+    a2();
+
+
+
+
+
+
+
+
+
+
+</script>

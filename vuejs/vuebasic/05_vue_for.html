@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05_vue_for</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!-- v-for 디렉티브는 반복하여 넣을 데이터를 하나씩 꺼내어 지정된 장소에 위치시킬 때 사용 -->
+    <div id="main">
+        <h2>좋아하는 과일을 순서대로 나열하기</h2>
+        <ol>
+            <li v-for="i in fruits">
+                {{i.fruitItem}} ({{i.fruitPrice}})
+            </li>
+        </ol>
+    </div>
+
+    <!-- 실습문제 : 본인이 여행하고 싶은 여행지 5개 도시명을 화면에 표현하기(by Vue 인스턴스에 작성된 데이터 기준) -->
+    <div id="app">
+        <h3>가고 싶은 여행지 5개 도시</h3>
+        <ul>
+            <!-- <li v-for="i in city">{{i.cityName}}</li> -->
+            <li v-for="i in city">{{i}}</li>
+        </ul>
+
+        <hr>
+
+        <h2>카카오 이미지 불러오기</h2>
+        <div class="kakao_case">
+            <div v-for="v of kakao">
+                <img :src="'./img/'+v.image" alt="">
+                <h4>{{v.title}}</h4>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el : "#app",
+            data : {
+                // city : [
+                //     {cityName : "파리"},
+                //     {cityName : "시드니"},
+                //     {cityName : "벤쿠버"},
+                //     {cityName : "리우"},
+                //     {cityName : "밀라노"},
+                // ]
+                city : [
+                "파리", "시드니", "벤쿠버", "리우", "밀라노"
+                ],
+                kakao : [
+                    {image : "img1.png", title : "와~ 첫눈이다"},
+                    {image : "img2.png", title : "바캉스 시즌~"},
+                ]
+            }
+        });
+
+
+        const main = new Vue({
+            el : "#main",
+            data : {
+                fruits : [
+                    {fruitItem : "사과", fruitPrice : "2,000원"},
+                    {fruitItem : "바나나", fruitPrice : "5,000원"},
+                    {fruitItem : "포도", fruitPrice : "4,000원"},
+                    {fruitItem : "자두", fruitPrice : "2,000원"},
+                    {fruitItem : "수박", fruitPrice : "30,000원"},
+                ]
+            }
+        });
+    </script>
+
+    <!-- 
+        실습문제 : v-for 디렉티브를 활용하여 고객의 이름과 나이를 출력하는 프로그램을 구현하시오. 
+        예시 [ 출력결과 ] 이름 : 000, 나이 : 00세
+        출력소스 : 홍길동(20세), 이순신(30세), 김유신(26세)
+    -->
+
+</body>
+</html>

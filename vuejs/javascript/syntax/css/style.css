@@ -1,0 +1,116 @@
+@charset "utf-8";
+*{box-sizing: border-box;}
+html, body{margin: 0; padding: 0;}
+h1, h2, h3, h4, h5, h6, p{margin: 0;}
+ul, ol{margin: 0; padding: 0; list-style: none;}
+a{text-decoration: none;}
+
+
+header{
+    height: 60px;
+    background-color: #ff9;
+}
+header .wrap{
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #aff;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+header .wrap .logo{}
+header .wrap .logo a{
+    display: block;
+    font-size: 20px;
+    color:#777;
+    font-weight: bold;
+}
+
+header .wrap .menu{}
+header .wrap .menu ul{
+    display: flex;
+    column-gap: 20px;
+}
+header .wrap .menu ul li{}
+header .wrap .menu ul li a{
+    display: block;
+    font-size: 15px;
+    color:#999;
+}
+
+main{
+    width: 100%; height: auto; /*자식의 높이 값을 부모영역에 전달*/
+    padding: 40px 0;
+}
+main .wrap{
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap:20px;
+}
+main .wrap .box{
+    width: calc((100% - 60px) / 4);
+    height: 200px;
+    background-color: #faa;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+/*
+main .wrap .box:nth-child(1){
+    background-image: url(../img/img_01.jpg);
+}
+main .wrap .box:nth-child(2){
+    background-image: url(../img/img_02.jpg);
+}
+main .wrap .box:nth-child(3){
+    background-image: url(../img/img_03.jpg);
+}
+main .wrap .box:nth-child(4){
+    background-image: url(../img/img_04.jpg);
+}
+main .wrap .box:nth-child(5){
+    background-image: url(../img/img_05.jpg);
+}
+main .wrap .box:nth-child(6){
+    background-image: url(../img/img_06.jpg);
+}
+*/
+
+/*header .wrap : 선택자 
+    [CSS의 명시도]
+    - 아이디 선택자 : #아이디명 (100점/개당)
+    - 클래스 선택자 : .클래스명(10점/개당)
+    - 태그 선택자 : 태그명(1점/개당)
+    - 전체 선택자 : *(0점/개당)
+
+*/
+@media (max-width:1200px){
+    header .wrap{
+        width: 100%;
+    }
+    main .wrap{
+        width: 100%;
+    }
+}
+
+@media (max-width:991px){
+    main .wrap .box{
+        width: calc((100% - 40px) / 3); 
+    }
+}
+
+@media (max-width:767px){
+    main .wrap .box{
+        width: calc((100% - 20px) / 2); 
+    }
+}
+

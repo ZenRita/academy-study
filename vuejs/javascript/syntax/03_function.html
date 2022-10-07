@@ -1,0 +1,216 @@
+<script>
+    //ECMA Script6 이후 함수 도입 "Arrow Function" : =>
+    //비교연산자 : <=, >=
+
+    //***기존함수
+    //일반함수 : 직접호출
+    function add0(a, b){  //매개변수 : 함수 구문 내부에서만 활용 가능
+        console.log(a);  //7
+        console.log(b);  //8
+    }
+    add0(7, 8);
+    //console.log(a);  
+    //전역변수에 선언된 a라는 변수명을 찾아감(이전에 선언된 적이 없음)
+
+    function add1(a, b){
+        console.log(a);  //2
+        console.log(b);  //3
+        return a + b;  //5  ==> 함수구문 내부에서 결합된 값을 호출한 대상으로 돌려준다. (함수구문 외부로 반출이 가능)
+    }
+    console.log(add1(2, 3));
+    console.log(add1);  //함수구문
+
+    //익명함수 : 간접호출
+    var add1_1 = function(x, y){
+        console.log(x);  //30
+        console.log(y);  //14
+        return x % y;
+    }
+    console.log(add1_1(30, 14, 25));
+
+    //const 변수 선언
+    const add2 = function(c, d){
+        console.log(c);
+        console.log(d);
+        return c + d;
+    }
+    console.log(add2(10, 20));  //30
+
+    //***화살표 함수 적용. function 단어 제거 -> {} 대신에 '=>'를 작성 => return 문만 존재시 return을 제거할 수 있음
+    const add3 = (c, d) => c + d;
+    console.log(add3(10, 20));  //30
+
+    //매개변수가 하나만 존재할 때 - 방법1
+    const add4 = (g) => g + 9;
+    console.log(add4(6, 32));
+
+    //매개변수가 하나만 존재할 때 - 방법2
+    const add5 = h => h + 9;
+    console.log(add5(6, 32));
+
+    //함수구문이 return문만 존재하지 않은 경우, 중괄호를 생략하면 안된다.
+    const calc1 = (a, b, c) => {
+        
+        let sum = (a + b) * c;
+        console.log(sum);
+
+        return `최종 결과값 : ${sum}`;
+    }
+    console.log(calc1(12, 14, 2));
+
+
+    //Hoisting : 함수의 호출문 위치에 따라서 함수구문을 호출 가능한가?
+    func1();
+    //일반함수는 호이스팅이 적용되기 떄문에 스크립트 구문의 상단으로 올라감
+    function func1(){
+        console.log(`func1의 호출에 의한 함수 실행`);
+    }
+
+    //func2();  //Uncaught ReferenceError: Cannot access 'func2' before initialization
+    //익명함수는 호이스팅을 막아주는 역할을 담당
+    const func2 = () => {
+        console.log(`func2의 호출에 의한 함수 실행`);
+    }
+    func2();
+
+    //Hoisting을 막을 수 있는 방법 : get 방식으로 적용한 함수는 현재 구문의 위치를 고수한다.
+
+    //실습문제 : 세개의 수를 합산하는 함수를 구성하시오. 함수 호출문을 통해서 1,2,3의 데이터를 매개 변수로 전달하고 화살표 함수를 이용하여 콘솔창에 "최종합계 : 6"이라는 결과를 도출하시오. 함수는 const로 선언할 것
+    const ex1 = (i, j, k) => i + j + k;
+    console.log(`최종합계 : ${ex1(1, 2, 3)}`);
+</script>
+
+<!-- #1. "스누피"라는 문구를 "카카오"로 변경-->
+<!-- #2. "스누피"라는 문구를 "스머프"로 변경 + 함수구문 내부에서 리턴을 받아서 콘솔창에 작성 (콘솔창에서의 결과값은 "스머프 만세") -->
+<!--  -->
+<h1 id="ch_txt">스누피</h1>
+<script>
+    const changeText = (t) => {
+        //document.querySelector("#ch_txt").innerHTML = t;
+        //document.querySelector("#ch_txt").textContent = t;
+        //document.querySelector("#ch_txt").innerText = t;
+        document.querySelector("#ch_txt").textContent = t;
+        return `${t} 만세`;
+    }
+    //changeText("카카오");
+    console.log(changeText("스머프"));
+</script>
+
+<h2>이벤트</h2>
+<p>요소별 이벤트 : click, mouse, touch, keyboard</p>
+<p>전체 대상 이벤트 : resize, scroll</p>
+<p>form 대상 이벤트 : submit, reset, change</p>
+
+<h3>이벤트 : 함수와 이벤트에 의한 함수 호출명</h3>
+<h4>이벤트-1 : HTML 구문상에서 선언된 호출명에 의한 이벤트 발생</h4>
+<div class="evt1">
+    <button onclick="evt1Func();">이벤트-1</button>
+</div>
+
+<script>
+    const evtFunc1 = () => {
+        console.log("이벤트-1 클릭에 의한 함수 실행");
+    }
+</script>
+
+<hr>
+
+<h4>이벤트-2 : 스크립트에서만 선언한 이벤트에 의한 함수 실행</h4>
+<div class="evt2">
+    <button>이벤트-2</button>
+</div>
+<script>
+    const evt2Btn = document.querySelector(".evt2 button");
+
+    const evt2Func = () => {
+        console.log("이벤트-2 클릭에 의한 함수 실행");
+    }
+
+    evt2Btn.onclick = evt2Func;
+</script>
+
+<hr>
+<h4>이벤트-3 : 스크립트에서만 이벤트에 의한 함수 실행 (addEventListener)</h4>
+<div class="evt3">
+    <button>이벤트-3</button>
+</div>
+<script>
+    const evt3Btn = document.querySelector(".evt3 button");
+    evt3Btn.addEventListener("click", () => {
+        console.log("이벤트-3 클릭에 의한 함수 실행");
+    });
+</script>
+
+<h3>화살표 함수 / 일반 함수에서 this라는 키워드</h3>
+<div class="box">박스 공간</div><hr>
+<div class="box">박스 공간</div><hr>
+<div class="box">박스 공간</div>
+
+<style>
+    .box{
+        width: 200px;
+        height: 200px;
+        border: 1px solid #f00;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .box.open{
+        background-color: #ff0;
+    }
+</style>
+
+<script>
+    const $box = document.querySelectorAll(".box");
+    console.log($box);  // 복수의 배열 형태로 요소를 저장을 한다.
+    
+    // $box.addEventListener("click", () => {
+    //     console.log(this);
+    //     this.classList.add("open");
+    // });
+
+    // $box.addEventListener("click", function(){
+    //     console.log(this);  // <div class="box"> 박스 공간 </div>flex
+    //     this.classList.add("open");
+    // });
+
+    for(const i in $box){
+        $box[i].addEventListener("click", function(){
+        console.log(this);
+        this.classList.add("open");
+    });
+    }
+
+
+    // 화살표 함수가 부모의 스코프 ()에서 상속을 한다는 것을 이 상태에서 인지한다면, 에러가 발생하는 부분은 일반 함수로
+    // 작성을 해야한다
+
+</script>
+
+<!-- 객체 = {key : value1(일반적인 데이터를 담을 때), key2 : function(){}(메서드를 다믈 때) } -->
+
+<script>
+    const person1 = {
+        age : 10,   // 일반속성
+        grow : function(){  // 메소드
+            console.log(this);  //{age: 10, grow: ƒ} => person1이라는 객체를 지칭
+            this.age++;
+            console.log(person1.age);   // 11
+            console.log(this.age);   // 11
+        }   
+    }
+    person1.grow();
+
+    /////////
+    const person2 = {
+        age : 10,   // 일반속성
+        grow : () => {  // 메소드
+            console.log(this);
+            this.age++;
+            console.log(person2.age);
+            console.log(this.age);
+        }   
+    }
+
+</script>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09_vue_component(구성요소 불러오기)</title>
+    <link rel="stylesheet" href="./css/style_9.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 뷰의 주요 특징인 컴포넌트는 HTML의 기본 엘리먼트 이외의 특정적인 태그명에 배치시키는 방법 -->
+    <div id="new_component">
+        <new-element></new-element>
+    </div>
+
+    <script>
+        Vue.component("new-element", {
+            data : function(){
+                return {
+                    msg : "안녕하세요~ 컴포넌트입니다."
+                }               
+            },
+
+            template : `<h3>{{msg}}</h3>`
+        });
+
+        new Vue({
+            el : "#new_component"
+        });
+    </script>
+
+    <h2>전역 컴포넌트</h2>
+    <p>1회의 컴포넌트 선언만으로도 두 인스턴스에서 재활용이 가능</p>
+
+    <div id="global_component1">
+        <global-element></global-element>
+    </div>
+    <div id="global_component2">
+        <global-element></global-element>
+    </div>
+
+    <style>
+        [id^="global_"] .red{
+            color:red;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        Vue.component("global-element", {
+            template : `<div class="red">전역 컴포넌트로 등록되었습니다.</div>`
+        });
+        new Vue({
+            el : "#global_component1"
+        });
+        new Vue({
+            el : "#global_component2"
+        });
+
+    </script>
+
+    <!-- 생성하는 요소명에는 절대 대문자 사용하지 말것 -->
+    <h3>Baskin Rabison 아이스크림 리스트</h3>
+    <div id="baskin">
+        <ice-list />
+    </div>
+    <script>
+        Vue.component("ice-list", {
+            data : () => {
+                return {
+                    bList : ["엄마는 외계인", "체리쥬빌레", "애플민트", "초콜릿무스"]
+                }
+            },
+            template : `
+                <ul>
+                    <li v-for="list in bList">{{list}}</li>    
+                </ul>            
+            `
+        });
+        new Vue({
+            el : "#baskin"
+        });
+        /*
+            [컴포넌가 Vue 인스턴스 내부에서 적용되는 순서] 
+            #1. 컴포넌트가 인스턴스에 등록된다.
+            #2. new Vue에서 지정된 el의 공간에 인스턴스를 형성한다.
+            #3. template에 지정된 <ice-list /> 태그에 위치시킨다.
+            #4. 문서가 열림과 동시에 v-for 디렉티브가 작동되면서 내부에 지정된 data를 추적하여 해당 순서마다 가져온다.
+        */
+    </script>
+
+    <h3>상단 헤더 구성요소 만들기</h3>
+    <div id="html_el">
+        <header-el></header-el>
+        <div class="dark" @click="closePop"></div>
+        <div class="popup">
+            <span class="close" @click="closePop">×</span>
+            <div>
+                <h3>로그인 팝업창</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- <header>
+        <div class="logo">
+            <a href="">Brand</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="">About</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">About</a></li>
+            </ul>
+            <button>Sign In</button>
+        </nav>
+    </header> -->
+
+
+    <script>
+        Vue.component("header-el", {
+            data : () => {
+                return {
+                    menuList : [
+                        ["About", "./about.html"],
+                        ["Project", "./project.html"],
+                        ["Portfolio", "./portfolio.html"],
+                        ["Contact", "./contact.html"],
+                    ]
+                }
+            },
+            template : `
+            <header>
+                <div class="logo">
+                    <a href="">Brand</a>
+                </div>
+                <nav>
+                    <ul>
+                        <li v-for="list in menuList">
+                            <a href="list[1]">{{list[0]}}</a>
+                        </li>
+                    </ul>
+                    <button @click="openPop">Sign In</button>
+                </nav>
+            </header>
+            `,
+            methods : {
+                openPop(){
+                    document.querySelector("body").classList.add("active");
+                    document.querySelector(".dark").classList.add("active");
+                    document.querySelector(".popup").classList.add("active");
+                }
+            }
+
+        });
+        new Vue({
+            el : "#html_el",
+            methods : {
+                closePop(){
+                    document.querySelector("body").classList.remove("active");
+                    document.querySelector(".dark").classList.remove("active");
+                    document.querySelector(".popup").classList.remove("active");
+                }
+            }
+        });
+
+    </script>
+
+
+    <h2>지역 컴포넌트</h2>
+    <div id="local_component">
+        <local-el-01></local-el-01>
+        <local-el-02></local-el-02>
+    </div>
+    <script>
+        const showTxt1 = {
+            template : "<div>지역 컴포넌트 등록1</div>"
+        }
+        const showTxt2 = {
+            template : "<div>지역 컴포넌트 등록2</div>"
+        }
+        new Vue({
+            el : "#local_component",
+            components : {
+                "local-el-01" : showTxt1,
+                "local-el-02" : showTxt2
+            }
+        });
+    </script>
+
+    <!-- Copyrights &copy; 2022 -->
+    <div id="footer">
+        <footer-el></footer-el>
+    </div>
+    <script>
+        const date = new Date();
+        const curYear = date.getFullYear();
+        const footer = {
+            template : `<footer><p>Copyrights &copy; ${curYear}</p></footer>`
+        }
+        new Vue({
+            el : "#footer",
+            components : {
+                "footer-el" : footer
+            }
+        });
+    </script>
+
+
+    <!-- 
+        [전역 컴포넌트와 지역 컴포넌트의 차이점]
+        - 각 컴포넌트의 역할(모듈화 개념)과 메모리 공간을 생성하는 것은 동일
+        
+        - 전역 컴포넌트는 인스턴스의 유효 범위에서 별도의 등록 없이도 문서 공간에 접근 가능
+        - 지역 컴포넌트는 인스턴스 유효 범위 내에서 선언이 되어야 한다. 
+     -->
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

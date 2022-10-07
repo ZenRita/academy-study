@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06_vue_on(이벤트 : 함수호출명 + 함수구문)</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 
+
+        [이벤트를 실행하는 식 - 자바스크립트]
+        <<방법1>>=========
+        <button onclick = "함수호출명1();">버튼 클릭1</button>
+        <script>
+            function 함수호출명1(){.....실행문.....}
+        </script> 
+        
+        <<방법2>>=========
+        <button class="btn2">버튼 클릭2</button>
+        <script>
+            document.querySelector(".btn2").onclick = 함수호출명2;
+            function 함수호출명2(){.....실행문.....}
+        </script>
+        
+        <<방법3>>=========
+        <button class="btn3">버튼 클릭3</button>
+        <script>
+            document.querySelector(".btn3").addEventListener("click", function(){
+                .....실행문.....
+            });
+        </script>
+    -->
+
+    <!-- v-on 디렉티브는 Vue 인스턴스 내부에서 발생하는 사용자의 액션에 의한 이벤트를 제어하는 형식 -->
+    <!-- v-on:이벤트명 = "함수호출명"  ==  onclick = "함수호출명();" -->
+    <div id="app">
+        <h3>{{resultMsg}}</h3>
+        <button v-on:click="funcChange1">클릭 이벤트 발생</button>
+        <button v-on:mouseover="funcChange2" v-on:mouseout="funcChange3">마우스 이벤트 발생</button>
+    </div>
+
+    <!-- "v-on:" 문구대신에 "@"으로 축약할 수 있음 -->
+
+    <div id="main">
+        <img @mouseover="overImg" @mouseout="outImg" 
+        :src="'./img/'+kakaoImg" alt="">
+    </div>
+
+    <script>
+        const main = new Vue({
+            el : "#main",
+            data : {
+                kakaoImg : "img1.png",
+            },
+            methods : {
+                //이미지 위에서 마우스 오버 이벤트 발생
+                overImg(){
+                    this.kakaoImg = "img2.png";
+                },
+                //이미지 위에서 마우스 아웃 이벤트 발생
+                outImg(){
+                    this.kakaoImg = "img1.png";
+                }
+            }
+        });
+
+        const app = new Vue({
+            el : "#app",
+            data : {
+                resultMsg : "아래의 이벤트를 적용하세요"
+            },
+            //함수구문으로 작성한다.
+            methods : {
+                //클릭이벤트
+                funcChange1(){
+                    console.log(this);
+                    console.log(this.data);  //undefined
+                    console.log(this.resultMsg);  //아래의 이벤트를 적용하세요(초기값)
+                    this.resultMsg = "마우스가 버튼을 클릭했어요~"
+                },
+                funcChange2(){
+                    this.resultMsg = "마우스가 버튼 위로 올라갔어요~"
+                },
+                funcChange3(){
+                    this.resultMsg = "마우스가 버튼 밖으로 나갔어요~"
+                }
+            }
+        });
+    </script>
+
+
+    <!-- 
+        [이벤트 정리]
+
+        touchstart : 사용자가 화면을 터치했을 때, 실행되는 이벤트
+        touchend : 사용자가 화면에서 손가락을 떼었을 때, 실행되는 이벤트
+
+    -->
+
+
+</body>
+</html>

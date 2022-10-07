@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04_vue_if</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!-- v-if 디렉티브는 태그 내부에서 선언하고 그 값의 true 또는 false의 결과에 따라서 화면에 보여줄 것인가? 아닌가?를 결정 -->
+    <div id="main">
+        <h3>{{vCoin}}</h3>
+        <p v-if="vCoin == true">앞면</p>
+        <p v-else>뒷면</p>
+    </div>
+
+    <hr>
+
+    <div id="app">
+        <button v-if="bool">로그인</button>
+        <button v-else>로그아웃</button>
+    </div>
+
+    <script>
+        //Math(수학객체)
+        //Math.ceil(숫자형 변수명) : 소수점 첫번째 자리에서 올림을 한다.
+        //Math.floor(숫자형 변수명) : 소수점 첫번째 자리에서 내림을 한다.
+        //Math.round(숫자형 변수명) : 소수점 첫번째 자리에서 반올림을 한다.
+        //Math.random() : 0 ~ 1 사이의 난수를 반환
+
+        const main = new Vue({
+            el : "#main",
+            data : {
+                vCoin : Math.random() > 0.5
+            }
+        });
+
+        const app = new Vue({
+            el : "#app",
+            data : {
+                bool : true
+            }
+        });
+        /*
+        if(false){
+            실행문 A;
+        }else{
+            실행문 B;
+        }
+        */
+    </script>
+
+
+
+</body>
+</html>

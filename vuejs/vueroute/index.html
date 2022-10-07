@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+</head>
+<body>
+    <!-- 
+        라우터란 해당 요청한 페이지를 응답을 통해서 가져올 수 있는 기능을 의미
+        라우터를 사용하여 경로와 컴포넌트를 등록하면 싱글 페이지 어플리케이션(SPA)을 사용자에게 빠른 속도로 제공할 수 있음
+    -->
+    <div id="app">
+        <h2>라우터를 활용한 SPA 구성하기</h2>
+        <router-link to="/">Main Page</router-link>
+        <router-link to="/about">About Page</router-link>
+        <router-link to="/project">Project Page</router-link>
+
+        <hr>
+        <router-view></router-view>
+    </div>
+    
+
+    <script>
+        //라우터에 등록할 컴포넌트를 정의
+        const tmMain = {
+            template : `<h3>메인 페이지입니다.</h3>`
+        }
+        const tmAbout = {
+            template : `<h3>About 페이지입니다.</h3>`
+        }
+        const tmProject = {
+            template : `<h3>Project 페이지입니다.</h3>`
+        }
+        
+        //이동할 주소명과 사용할 컴포넌트를 등록하여 라우팅을 정의한다.
+        const rtRoutes = [
+            {
+                path : "/",
+                component : tmMain
+            },
+            {
+                path : "/about",
+                component : tmAbout
+            },
+            {
+                path : "/project",
+                component : tmProject
+            },
+        ]
+        //라우터 인스턴스를 생성하고 routes라는 옵션에 위에서 생성한 메모리를 전달
+        const router1 = new VueRouter({
+            routes : rtRoutes
+        });
+
+        new Vue({
+            el : "#app",
+            router : router1
+        })
+
+
+    </script>
+
+
+
+</body>
+</html>
